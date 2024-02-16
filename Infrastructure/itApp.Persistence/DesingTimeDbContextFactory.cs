@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using itApp.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+
 
 namespace itApp.Persistence
 {
-    internal class DesingTimeDbContextFactory
+    public class DesingTimeDbContextFactory : IDesignTimeDbContextFactory<itDbContext>
     {
+        itDbContext IDesignTimeDbContextFactory<itDbContext>.CreateDbContext(string[] args)
+        {
+            //egerki talimat powershell üzerinden geliyorsa ,
+            //hangi options parametlerini default olarak kabul etmesi gerektigini belirtiyor.
+
+            DbContextOptionsBuilder<itDbContext> dbContextOptionsBuilder = new();
+            dbContextOptionsBuilder.UseSqlServer(Configuration.ConnectionString);
+            return new itDbContext(dbContextOptionsBuilder.Options); // burda dbconteximizde options verdik
+        }
     }
 }

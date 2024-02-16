@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using itApp.Application.Abstractions.Token;
+using itApp.Infrastructure.Services.Token;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace itApp.Infrastructure
 {
-    internal class ServiceRegistration
+    public static class ServiceRegistration
     {
+        public static void AddInfrastructureServices(this IServiceCollection services)
+        {
+
+            services.AddScoped<ITokenHandler, TokenHandler>();
+        }
     }
 }

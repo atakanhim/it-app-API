@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Microsoft.Extensions.DependencyInjection;
+using MediatR;
 
 namespace itApp.Application
 {
-    public class ServiceRegistration
+    public static class ServiceRegistration
     {
+        public static void AddApplicationServices(this IServiceCollection services)
+        {
+            
+            services.AddMediatR(typeof(ServiceRegistration)); // bu sınıfın bulundugu assemlbdeki tüm , ihandler , irequest sınıflarını bul ve aracı ol
+
+        }
     }
 }
