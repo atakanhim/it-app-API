@@ -6,7 +6,7 @@ using itApp.Application.Features.Commands.AppUser.RefreshTokenLogin;
 
 namespace itApp.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AuthController : Controller
     {
@@ -27,7 +27,7 @@ namespace itApp.API.Controllers
         public async Task<IActionResult> Login([FromBody]LoginUserCommandRequest loginUserCommandRequest)
         {
             LoginUserCommandResponse response = await _mediator.Send(loginUserCommandRequest);
-
+            
             return Ok(response);
         }
 
