@@ -8,7 +8,7 @@ namespace itApp.Application.Abstractions.Services
     public interface IUserService
     {
         Task<CreateUserResponse> CreateAsync(CreateUser model);
-        Task<ListUser> GetUser(string userid);
+        Task<ListUser> GetUser(string userName);
         Task UpdateRefreshTokenAsync(string? refreshToken, AppUser user, DateTime? accessTokenDate, int addOnAccessTokenDate);
         Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
         Task<List<ListUser>> GetAllUsersAsync(int page, int size);

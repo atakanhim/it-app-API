@@ -103,7 +103,8 @@ namespace itApp.Persistence.Services
                 await _userService.UpdateRefreshTokenAsync(tokenn.RefreshToken, user, tokenn.Expiration, refreshTokenLifeTimeSecond);
                 return new (){ 
                     token = tokenn,
-                    userid = user.Id,     
+                    userid = user.Id,  
+                    username=user.UserName
                 };
             }
             throw new AuthenticationErrorException();

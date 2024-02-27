@@ -43,15 +43,23 @@ namespace itApp.API.Controllers
         public async Task<IActionResult> GetUser([FromQuery] GetUserQueryRequest getUserQueryRequest)
         {
 
-            GetUserQueryResponse response = await _mediator.Send(getUserQueryRequest);
-            var settings = new JsonSerializerSettings
+            try
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
-            // Nesneleri JSON'a dönüştür
-            string json = JsonConvert.SerializeObject(response.User, settings);
-       
-            return Ok(json);
+                GetUserQueryResponse response = await _mediator.Send(getUserQueryRequest);
+                var settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+                // Nesneleri JSON'a dönüştür
+                string json = JsonConvert.SerializeObject(response.User, settings);
+
+                return Ok(json);
+            }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+            }
+            return BadRequest("Kullanıci bulanmadi");
         }
     }
 }

@@ -10,5 +10,6 @@ namespace itApp.Application.DTOs
     {
         public Token token { get; set; }
         public string userid { get; set; }
+        public string username { get; set; }
     }
 }

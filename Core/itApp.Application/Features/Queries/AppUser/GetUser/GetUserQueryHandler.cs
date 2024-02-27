@@ -16,7 +16,7 @@ namespace itApp.Application.Features.Queries.AppUser.GetUser
 
         public async Task<GetUserQueryResponse> Handle(GetUserQueryRequest request, CancellationToken cancellationToken)
         {
-            ListUser listuser = await _userService.GetUser(request.userid);
+            ListUser listuser = await _userService.GetUser(request.UserName);
             return new()
             {
                 User = listuser

@@ -77,11 +77,11 @@ namespace itApp.Persistence.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ListUser> GetUser(string userid)
+        public async Task<ListUser> GetUser(string userName)
         {
             var user = await _userManager.Users
                  .Include(u => u.Employees) // Kullanıcıların personellerini al
-                 .Where(x=>x.Id == userid)
+                 .Where(x=>x.UserName == userName)
                  .FirstOrDefaultAsync();
 
             ICollection<Employe> employe = user?.Employees;
