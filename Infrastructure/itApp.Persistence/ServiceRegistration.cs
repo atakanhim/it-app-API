@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using itApp.Application.Mappings;
 
 namespace itApp.Persistence
 {
@@ -21,6 +22,7 @@ namespace itApp.Persistence
             //microsoft.extension.configrutaion added json dosyayı okucaz
 
             services.AddDbContext<itDbContext>(options => options.UseSqlServer(Configuration.ConnectionString));
+            services.AddAutoMapper(typeof(ItAppProfile));
 
             services.AddIdentity<AppUser, AppRole>(options =>
             {
@@ -29,6 +31,7 @@ namespace itApp.Persistence
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
+                options.User.RequireUniqueEmail = true;
 
             }).AddEntityFrameworkStores<itDbContext>();
 

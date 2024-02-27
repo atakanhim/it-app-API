@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace itApp.Domain.Entities.Identity
 {
@@ -12,5 +7,7 @@ namespace itApp.Domain.Entities.Identity
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenEndDate { get; set; }
 
+        // Navigation property for employees added by this user
+        public ICollection<Employe> Employees { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using itApp.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,9 @@ namespace itApp.Application.DTOs.User
     {
         public string Id { get; set; }
         public string Email { get; set; }
-        public string NameSurname { get; set; }
         public string UserName { get; set; }
-        public bool TwoFactorEnabled { get; set; }
+ 
+        public IEnumerable<EmployeDTO>? Employees { get; set; }
     }
 }
+

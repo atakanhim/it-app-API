@@ -4,15 +4,21 @@ using itApp.Application.Abstractions.Services;
 using itApp.Application.DTOs.User;
 using itApp.Application.Exceptions;
 using itApp.Domain.Entities.Identity;
+using AutoMapper;
+using itApp.Application.DTOs;
+using itApp.Domain.Entities;
+using System.Collections.Generic;
 
 namespace itApp.Persistence.Services
 {
     public class UserService : IUserService
     {
         readonly UserManager<Domain.Entities.Identity.AppUser> _userManager;
-        public UserService(UserManager<AppUser> userManager)
+        private IMapper _mapper;
+        public UserService(UserManager<AppUser> userManager,IMapper mapper)
         {
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         public int TotalUsersCount => throw new NotImplementedException();
@@ -55,19 +61,39 @@ namespace itApp.Persistence.Services
                                          .Take(size)
                                          .ToListAsync();
 
+          
             var userList = users.Select(user => new ListUser
             {
                 Id = user.Id,
                 Email = user.Email, 
-                UserName = user.UserName,
-                TwoFactorEnabled = user.TwoFactorEnabled
+                UserName = user.UserName,       
             }).ToList();
+
             return userList;
         }
 
         public Task<string[]> GetRolesToUserAsync(string userIdOrName)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ListUser> GetUser(string userid)
+        {
+            var user = await _userManager.Users
+                 .Include(u => u.Employees) // Kullanıcıların personellerini al
+                 .Where(x=>x.Id == userid)
+                 .FirstOrDefaultAsync();
+
+            ICollection<Employe> employe = user?.Employees;
+
+            ICollection<EmployeDTO> dtoemploye = _mapper.Map<ICollection<Employe>, ICollection<EmployeDTO>>(employe);
+
+            return new () {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email =user.Email,
+                Employees = dtoemploye
+            };
         }
 
         public Task<bool> HasRolePermissionToEndpointAsync(string name, string code)

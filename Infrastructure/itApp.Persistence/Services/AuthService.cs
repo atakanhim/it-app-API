@@ -87,7 +87,7 @@ namespace itApp.Persistence.Services
          
         }
 
-        public async Task<Token> LoginAsync(string usernameOrEmail, string password, int accessTokenLifeTimeSecond, int refreshTokenLifeTimeSecond)
+        public async Task<LoginResponseDTO> LoginAsync(string usernameOrEmail, string password, int accessTokenLifeTimeSecond, int refreshTokenLifeTimeSecond)
         {
             Domain.Entities.Identity.AppUser user = await _userManager.FindByNameAsync(usernameOrEmail);
             if (user == null)
@@ -99,9 +99,12 @@ namespace itApp.Persistence.Services
             SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
             if (result.Succeeded) //Authentication başarılı!
             {
-                Token token = _tokenHandler.CreateAccessToken(accessTokenLifeTimeSecond, user);
-                await _userService.UpdateRefreshTokenAsync(token.RefreshToken, user, token.Expiration, refreshTokenLifeTimeSecond);
-                return token;
+                Token tokenn = _tokenHandler.CreateAccessToken(accessTokenLifeTimeSecond, user);
+                await _userService.UpdateRefreshTokenAsync(tokenn.RefreshToken, user, tokenn.Expiration, refreshTokenLifeTimeSecond);
+                return new (){ 
+                    token = tokenn,
+                    userid = user.Id,     
+                };
             }
             throw new AuthenticationErrorException();
         }

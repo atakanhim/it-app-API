@@ -1,8 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using itApp.Application.Features.Commands.AppUser.CreateUser;
-using itApp.Application.Features.Queries.AppUser.GettAllUsers;
 using Microsoft.AspNetCore.Authorization;
+using itApp.Application.Features.Queries.AppUser.GetAllUsers;
+using itApp.Application.Features.Queries.AppUser.GetUser;
+using itApp.Domain.Entities;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace itApp.API.Controllers
 {
@@ -27,11 +32,26 @@ namespace itApp.API.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUsersQueryRequest getAllUsersQueryRequest)
+        public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUserQueryRequest getAllUsersQueryRequest)
         {
 
-            GetAllUsersQueryResponse response = await _mediator.Send(getAllUsersQueryRequest);
+            GetAllUserQueryResponse response = await _mediator.Send(getAllUsersQueryRequest);
             return Ok(response);
+        }     
+       // [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetUser([FromQuery] GetUserQueryRequest getUserQueryRequest)
+        {
+
+            GetUserQueryResponse response = await _mediator.Send(getUserQueryRequest);
+            var settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+            // Nesneleri JSON'a dönüştür
+            string json = JsonConvert.SerializeObject(response.User, settings);
+       
+            return Ok(json);
         }
     }
 }

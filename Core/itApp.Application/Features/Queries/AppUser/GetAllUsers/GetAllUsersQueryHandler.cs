@@ -2,18 +2,22 @@
 using MediatR;
 
 
-namespace itApp.Application.Features.Queries.AppUser.GettAllUsers
+namespace itApp.Application.Features.Queries.AppUser.GetAllUsers
 {
-    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQueryRequest, GetAllUsersQueryResponse>
+    public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQueryRequest, GetAllUserQueryResponse>
     {
         readonly IUserService _userService;
 
-        public GetAllUsersQueryHandler(IUserService userService)
+        public GetAllUserQueryHandler()
+        {
+        }
+
+        public GetAllUserQueryHandler(IUserService userService)
         {
             _userService = userService;
         }
 
-        public async Task<GetAllUsersQueryResponse> Handle(GetAllUsersQueryRequest request, CancellationToken cancellationToken)
+        public async Task<GetAllUserQueryResponse> Handle(GetAllUserQueryRequest request, CancellationToken cancellationToken)
         {
             // Eğer page veya size null ise, varsayılan değerleri kullan
             int page = request.Page ?? 1;
@@ -21,6 +25,7 @@ namespace itApp.Application.Features.Queries.AppUser.GettAllUsers
 
             // UserService kullanarak kullanıcı listesini al
             var users = await _userService.GetAllUsersAsync(page, size);
+            
 
             // Toplam kullanıcı sayısını almak için bir yöntem kullanmanız gerekebilir.
             // Örnek olarak, burada basitçe users.Count kullanıyorum, 
@@ -28,7 +33,7 @@ namespace itApp.Application.Features.Queries.AppUser.GettAllUsers
             int totalCount = users.Count; // Bu, daha karmaşık bir sorgu gerektirir.
 
             // GetAllUsersQueryResponse modelini doldurun
-            var response = new GetAllUsersQueryResponse
+            var response = new GetAllUserQueryResponse
             {
                 Users = users,
                 Page = page,

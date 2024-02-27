@@ -2,9 +2,9 @@
 
 using itApp.Application.DTOs.User;
 
-namespace itApp.Application.Features.Queries.AppUser.GettAllUsers
+namespace itApp.Application.Features.Queries.AppUser.GetAllUsers
 {
-    public class GetAllUsersQueryResponse
+    public class GetAllUserQueryResponse
     {
         public IEnumerable<ListUser> Users { get; set; } // Kullanıcı listesi
         public int Page { get; set; } // İstenen sayfa numarası

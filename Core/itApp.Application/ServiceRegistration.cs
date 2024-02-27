@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
+using itApp.Application.Mappings;
 
 namespace itApp.Application
 {
