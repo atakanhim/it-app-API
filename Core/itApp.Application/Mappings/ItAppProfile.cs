@@ -20,6 +20,7 @@ namespace itApp.Application.Mappings
             CreateMap<Employe, EmployeDTO>().ReverseMap();
             CreateMap<LeaveRequest, LeaveRequestDTO>().ReverseMap();
             CreateMap<LeaveType, LeaveTypeDTO>().ReverseMap();
+            CreateMap<Department, DepartmentDTO>().ReverseMap();
 
             // START create EMPLOYEE MAP
             CreateMap<CreateEmployeCommandRequest, Employe>()
@@ -33,10 +34,15 @@ namespace itApp.Application.Mappings
             // START create LEAVE REQUEST MAP
             CreateMap<CreateLeaveRequestCommandRequest, LeaveRequest>()
                 .ForMember(dest => dest.LeaveTypeId, opt => opt.MapFrom(src => Guid.Parse(src.LeaveTypeId)))
-                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => Guid.Parse(src.EmployeeId)));
+                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => Guid.Parse(src.EmployeeId)))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate.Date))
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate.Date));
+
             CreateMap<LeaveRequest, CreateLeaveRequestCommandRequest>()
                 .ForMember(dest => dest.LeaveTypeId, opt => opt.MapFrom(src => src.LeaveTypeId.ToString()))
-                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => src.EmployeeId.ToString()));
+                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => src.EmployeeId.ToString()))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.StartDate.Date))
+                .ForMember(dest => dest.EndDate, opt => opt.MapFrom(src => src.EndDate.Date));
             // END create LEAVE REQUEST MAP
 
             // START create LeaveType MAP

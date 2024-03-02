@@ -90,12 +90,13 @@ namespace itApp.Persistence.Services
             try
             {
                 var user = await _userManager.Users
-              .Include(u => u.Employees) // Kullanıcıların personellerini al
-                .ThenInclude(z =>z.LeaveRequests) // Kullanıcıların personellerini al
-                    .ThenInclude(lr => lr.LeaveType)
-
-              .Where(x => x.UserName == userName)
-              .FirstOrDefaultAsync();
+                            .Include(u => u.Employees)
+                                .ThenInclude(d => d.LeaveRequests)
+                                    .ThenInclude(dt=>dt.LeaveType)
+                             .Include(u => u.Employees)
+                                .ThenInclude(d => d.Department)
+                             .Where(x => x.UserName == userName)
+                             .FirstOrDefaultAsync();
 
                 if (user == null)
                     throw new NotFoundUserException("Kullanıcı bulunamadı");

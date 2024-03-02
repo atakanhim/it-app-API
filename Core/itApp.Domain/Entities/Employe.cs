@@ -13,7 +13,7 @@ namespace itApp.Domain.Entities
         public string EmployeName { get; set; }
         public string EmployeSurname{ get; set; }
         public int EmployeTelNo { get; set; }
-        public int RemainingLeaveDays { get; set; } = 20;
+        public int UsedLeaveDays { get; set; } = 0;
 
         public ICollection<LeaveRequest> LeaveRequests { get; set; }
 

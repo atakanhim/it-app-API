@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using itApp.Persistence.Context;
 
@@ -11,9 +12,11 @@ using itApp.Persistence.Context;
 namespace itApp.Persistence.Migrations
 {
     [DbContext(typeof(itDbContext))]
-    partial class itDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240302204658_leavetypedelted")]
+    partial class leavetypedelted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,11 +179,11 @@ namespace itApp.Persistence.Migrations
                     b.Property<int>("EmployeTelNo")
                         .HasColumnType("int");
 
+                    b.Property<int>("RemainingLeaveDays")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("UsedLeaveDays")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

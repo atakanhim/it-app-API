@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace itApp.Application.DTOs
 {
-    public class LeaveTypeDTO
+    public class DepartmentDTO
     {
         public string Name { get; set; }
-        public string Description { get; set; }
-      //  public int NumberOfDaysAllowed { get; set; }
-
     }
 }

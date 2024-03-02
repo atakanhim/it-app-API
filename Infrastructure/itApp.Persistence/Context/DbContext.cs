@@ -50,10 +50,10 @@ namespace itApp.Persistence.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseLazyLoadingProxies();
-            }
+            //if (!optionsBuilder.IsConfigured)
+            //{
+            //    optionsBuilder.UseLazyLoadingProxies();
+            //}
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

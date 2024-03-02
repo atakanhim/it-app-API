@@ -11,7 +11,7 @@ namespace itApp.Domain.Entities
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int NumberOfDaysAllowed { get; set; }
+         //  public int NumberOfDaysAllowed { get; set; }
 
         public ICollection<LeaveRequest> LeaveRequests { get; set; }
     }
