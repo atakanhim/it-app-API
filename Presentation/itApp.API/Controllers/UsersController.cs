@@ -8,6 +8,7 @@ using itApp.Domain.Entities;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using Newtonsoft.Json;
+using System.Diagnostics.Metrics;
 
 namespace itApp.API.Controllers
 {
@@ -42,9 +43,6 @@ namespace itApp.API.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetUser([FromQuery] GetUserQueryRequest getUserQueryRequest)
         {
-
-            try
-            {
                 GetUserQueryResponse response = await _mediator.Send(getUserQueryRequest);
                 var settings = new JsonSerializerSettings
                 {
@@ -54,12 +52,7 @@ namespace itApp.API.Controllers
                 string json = JsonConvert.SerializeObject(response.User, settings);
 
                 return Ok(json);
-            }
-            catch (Exception ex)
-            {
-                BadRequest(ex.Message);
-            }
-            return BadRequest("Kullanıci bulanmadi");
+        
         }
     }
 }

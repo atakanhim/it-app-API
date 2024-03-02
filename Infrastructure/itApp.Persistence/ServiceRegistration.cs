@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using itApp.Application.Mappings;
+using itApp.Application.Repositories;
+using itApp.Persistence.Repositories;
 
 namespace itApp.Persistence
 {
@@ -39,6 +41,18 @@ namespace itApp.Persistence
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IExternalAuthentication, AuthService>();
             services.AddScoped<IInternalAuthentication, AuthService>();
+
+            services.AddScoped<IDepartmentReadRepository, DepartmentReadRepository>();
+            services.AddScoped<IDepartmentWriteRepository, DepartmentWriteRepository>();
+
+            services.AddScoped<IEmployeReadRepository, EmployeReadRepository>();
+            services.AddScoped<IEmployeWriteRepository, EmployeWriteRepository>();
+
+            services.AddScoped<ILeaveRequestReadRepository, LeaveRequestReadRepository>();
+            services.AddScoped<ILeaveRequestWriteRepository, LeaveRequestWriteRepository>();
+
+            services.AddScoped<ILeaveTypeReadRepository, LeaveTypeReadRepository>();
+            services.AddScoped<ILeaveTypeWriteRepository, LeaveTypeWriteRepository>();
 
 
 

@@ -1,14 +1,8 @@
 ﻿using itApp.Application.Repositories;
 using itApp.Domain.Entities.Common;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using itApp.Application.Repositories;
-using itApp.Domain.Entities.Common;
+
 using itApp.Persistence.Context;
 
 namespace itApp.Persistence.Repositories
@@ -32,6 +26,13 @@ namespace itApp.Persistence.Repositories
                 query = query.AsNoTracking();
             }
             return query;
+        }
+        public async Task<bool> IsExists(string id)
+        {
+            if (Guid.TryParse(id, out Guid parsedId))
+                return await Table.AnyAsync(p => p.Id == parsedId);
+
+            return false;
         }
 
         public IQueryable<T> GetWhere(Expression<Func<T, bool>> method, bool tracking = true)

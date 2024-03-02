@@ -9,7 +9,7 @@ using itApp.Persistence.Context;
 using itApp.Application.Repositories;
 using itApp.Domain.Entities.Common;
 
-namespace wardrobe.Persistence.Repositories
+namespace itApp.Persistence.Repositories
 {
     public class WriteRepository<T> : IWriteRepository<T> where T : BaseEntity
     {

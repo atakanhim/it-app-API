@@ -8,6 +8,7 @@ using AutoMapper;
 using itApp.Application.DTOs;
 using itApp.Domain.Entities;
 using System.Collections.Generic;
+using Microsoft.IdentityModel.Tokens;
 
 namespace itApp.Persistence.Services
 {
@@ -55,21 +56,28 @@ namespace itApp.Persistence.Services
 
         public async Task<List<ListUser>> GetAllUsersAsync(int page, int size)
         {
-            // Kullanıcıların sayfalı olarak alınması
-            var users = await _userManager.Users
-                                         .Skip((page - 1) * size)
-                                         .Take(size)
-                                         .ToListAsync();
-
-          
-            var userList = users.Select(user => new ListUser
+            try
             {
-                Id = user.Id,
-                Email = user.Email, 
-                UserName = user.UserName,       
-            }).ToList();
+                // Kullanıcıların sayfalı olarak alınması
+                var users = await _userManager.Users
+                                             .Skip((page - 1) * size)
+                                             .Take(size)
+                                             .ToListAsync();
 
-            return userList;
+
+                var userList = users.Select(user => new ListUser
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    UserName = user.UserName,
+                }).ToList();
+
+                return userList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public Task<string[]> GetRolesToUserAsync(string userIdOrName)
@@ -79,26 +87,49 @@ namespace itApp.Persistence.Services
 
         public async Task<ListUser> GetUser(string userName)
         {
-            var user = await _userManager.Users
-                 .Include(u => u.Employees) // Kullanıcıların personellerini al
-                 .Where(x=>x.UserName == userName)
-                 .FirstOrDefaultAsync();
+            try
+            {
+                var user = await _userManager.Users
+              .Include(u => u.Employees) // Kullanıcıların personellerini al
+                .ThenInclude(z =>z.LeaveRequests) // Kullanıcıların personellerini al
+                    .ThenInclude(lr => lr.LeaveType)
 
-            ICollection<Employe> employe = user?.Employees;
+              .Where(x => x.UserName == userName)
+              .FirstOrDefaultAsync();
 
-            ICollection<EmployeDTO> dtoemploye = _mapper.Map<ICollection<Employe>, ICollection<EmployeDTO>>(employe);
+                if (user == null)
+                    throw new NotFoundUserException("Kullanıcı bulunamadı");
 
-            return new () {
-                Id = user.Id,
-                UserName = user.UserName,
-                Email =user.Email,
-                Employees = dtoemploye
-            };
+
+                ICollection<Employe> employe = user.Employees;
+                
+
+                ICollection<EmployeDTO> dtoemploye = _mapper.Map<ICollection<Employe>, ICollection<EmployeDTO>>(employe);
+                
+                return new()
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Employees = dtoemploye
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
 
         public Task<bool> HasRolePermissionToEndpointAsync(string name, string code)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> IsUserExists(string usurId)
+        {
+            var model = await  _userManager.FindByIdAsync(usurId);
+            return model != null;
         }
 
         public Task UpdatePasswordAsync(string userId, string resetToken, string newPassword)

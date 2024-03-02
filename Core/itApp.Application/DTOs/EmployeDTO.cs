@@ -1,4 +1,6 @@
-﻿using System;
+﻿using itApp.Domain.Entities.Identity;
+using itApp.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +12,7 @@ namespace itApp.Application.DTOs
     {
         public string EmployeName { get; set; }
         public string EmployeSurname { get; set; }
+        public ICollection<LeaveRequestDTO> LeaveRequests { get; set; }
+        public Department Department { get; set; }
     }
 }

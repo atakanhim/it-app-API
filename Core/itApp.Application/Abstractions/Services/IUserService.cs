@@ -7,6 +7,7 @@ namespace itApp.Application.Abstractions.Services
 {
     public interface IUserService
     {
+        Task<bool> IsUserExists(string usurId);
         Task<CreateUserResponse> CreateAsync(CreateUser model);
         Task<ListUser> GetUser(string userName);
         Task UpdateRefreshTokenAsync(string? refreshToken, AppUser user, DateTime? accessTokenDate, int addOnAccessTokenDate);
