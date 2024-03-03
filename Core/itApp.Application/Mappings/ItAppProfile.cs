@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using itApp.Application.DTOs;
+using itApp.Application.Features.Commands.CheckMark.CreateCheckMark;
 using itApp.Application.Features.Commands.Employe.CreateEmploye;
 using itApp.Application.Features.Commands.LeaveRequest.CreateLeaveRequest;
 using itApp.Application.Features.Commands.LeaveType.CreateLeaveType;
@@ -17,10 +18,16 @@ namespace itApp.Application.Mappings
     {
         public ItAppProfile()
         {
+            // DTO
             CreateMap<Employe, EmployeDTO>().ReverseMap();
             CreateMap<LeaveRequest, LeaveRequestDTO>().ReverseMap();
             CreateMap<LeaveType, LeaveTypeDTO>().ReverseMap();
             CreateMap<Department, DepartmentDTO>().ReverseMap();
+            CreateMap<CheckMark, CheckMarkDTO>().ReverseMap();
+
+
+
+
 
             // START create EMPLOYEE MAP
             CreateMap<CreateEmployeCommandRequest, Employe>()
@@ -48,6 +55,20 @@ namespace itApp.Application.Mappings
             // START create LeaveType MAP
             CreateMap<LeaveType, CreateLeaveTypeCommandRequest>().ReverseMap();
             // END create LeaveType MAP
+
+
+
+            // START create CheckMark REQUEST MAP 
+                // requestteki string degeri guid parse etme işlemi
+            CreateMap<CreateCheckMarkCommandRequest, CheckMark>()
+                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => Guid.Parse(src.EmployeeId)));
+                // checkmark entitysindeki requeste tostring etme işlemi
+            CreateMap<CheckMark, CreateCheckMarkCommandRequest>()
+                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => src.EmployeeId.ToString()));
+            // END create CheckMark REQUEST MAP
+
+
+
         }
     }
 }
