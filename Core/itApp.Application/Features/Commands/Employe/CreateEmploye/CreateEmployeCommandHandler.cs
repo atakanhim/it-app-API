@@ -28,7 +28,7 @@ namespace itApp.Application.Features.Commands.Employe.CreateEmploye
         {
             try
             {
-                bool employeTelNoExists = await _readRepository.IsEmployeExists(request.EmployeTelNo);
+                bool employeTelNoExists = await _readRepository.IsEmployeExists(request.EmployeTelNo);// tel no varsa bir daha eklemiyor.
                 if (employeTelNoExists)
                     throw new Exception("Aynı telefon numarasına kayıtlı bir çalışan zaten mevcut.");
 

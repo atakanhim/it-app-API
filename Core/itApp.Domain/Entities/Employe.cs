@@ -16,6 +16,7 @@ namespace itApp.Domain.Entities
         public int UsedLeaveDays { get; set; } = 0;
 
         public ICollection<LeaveRequest> LeaveRequests { get; set; }
+        public ICollection<CheckMark> CheckMarks { get; set; }
 
 
         public string AppUserId { get; set; }
