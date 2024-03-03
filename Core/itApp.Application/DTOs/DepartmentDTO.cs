@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace itApp.Application.DTOs
 {
-    public class DepartmentDTO
+    public class DepartmentDTO:BaseDTO
     {
         public string Name { get; set; }
     }

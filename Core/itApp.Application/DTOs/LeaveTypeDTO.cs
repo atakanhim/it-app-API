@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace itApp.Application.DTOs
 {
-    public class LeaveTypeDTO
+    public class LeaveTypeDTO:BaseDTO
     {
         public string Name { get; set; }
         public string Description { get; set; }

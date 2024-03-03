@@ -61,7 +61,8 @@ namespace itApp.Application.Mappings
             // START create CheckMark REQUEST MAP 
                 // requestteki string degeri guid parse etme işlemi
             CreateMap<CreateCheckMarkCommandRequest, CheckMark>()
-                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => Guid.Parse(src.EmployeeId)));
+                .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => Guid.Parse(src.EmployeeId)))
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.StartDate));
                 // checkmark entitysindeki requeste tostring etme işlemi
             CreateMap<CheckMark, CreateCheckMarkCommandRequest>()
                 .ForMember(dest => dest.EmployeeId, opt => opt.MapFrom(src => src.EmployeeId.ToString()));

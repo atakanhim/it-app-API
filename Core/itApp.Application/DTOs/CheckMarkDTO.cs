@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace itApp.Application.DTOs
 {
-    public class CheckMarkDTO
+    public class CheckMarkDTO:BaseDTO
     {
         public DateTime Date { get; set; }
         public double WorkingHours { get; set; } = 8;

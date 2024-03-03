@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace itApp.Application.Repositories
 {
     public interface IRepository <T> where T : class
     {
-      //  DbSet<T> Table { get; }// nedne get dedik DbSet sadece get yaparız zaten dbcontext set ettik
+        DbSet<T> Table { get; }// nedne get dedik DbSet sadece get yaparız zaten dbcontext set ettik
     }
 }

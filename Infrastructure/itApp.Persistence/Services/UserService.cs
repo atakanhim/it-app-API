@@ -85,7 +85,7 @@ namespace itApp.Persistence.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ListUser> GetUser(string userName)
+        public async Task<ListUserWithEmployee> GetUserWithIncludes(string userName)
         {
             try
             {
@@ -95,6 +95,8 @@ namespace itApp.Persistence.Services
                                     .ThenInclude(dt=>dt.LeaveType)
                              .Include(u => u.Employees)
                                 .ThenInclude(d => d.Department)
+                              .Include(u=>u.Employees)
+                                .ThenInclude(dc=>dc.CheckMarks)
                              .Where(x => x.UserName == userName)
                              .FirstOrDefaultAsync();
 
@@ -102,9 +104,7 @@ namespace itApp.Persistence.Services
                     throw new NotFoundUserException("Kullanıcı bulunamadı");
 
 
-                ICollection<Employe> employe = user.Employees;
-                
-
+                ICollection<Employe> employe = user.Employees;            
                 ICollection<EmployeDTO> dtoemploye = _mapper.Map<ICollection<Employe>, ICollection<EmployeDTO>>(employe);
                 
                 return new()
@@ -112,7 +112,7 @@ namespace itApp.Persistence.Services
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
-                    Employees = dtoemploye
+                    Employees = dtoemploye,
                 };
             }
             catch (Exception ex)
@@ -121,7 +121,36 @@ namespace itApp.Persistence.Services
             }
 
         }
+        public async Task<ListUser> GetUser(string userName)
+        {
+            try
+            {
+                var user = await _userManager.Users
+                             .Where(x => x.UserName == userName)
+                             .FirstOrDefaultAsync();
 
+                if (user == null)
+                    throw new NotFoundUserException("Kullanıcı bulunamadı");
+
+
+                ICollection<Employe> employe = user.Employees;
+
+
+                ICollection<EmployeDTO> dtoemploye = _mapper.Map<ICollection<Employe>, ICollection<EmployeDTO>>(employe);
+
+                return new()
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
         public Task<bool> HasRolePermissionToEndpointAsync(string name, string code)
         {
             throw new NotImplementedException();

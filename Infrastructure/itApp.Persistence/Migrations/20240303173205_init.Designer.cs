@@ -12,8 +12,8 @@ using itApp.Persistence.Context;
 namespace itApp.Persistence.Migrations
 {
     [DbContext(typeof(itDbContext))]
-    [Migration("20240302215943_datetimeupdate")]
-    partial class datetimeupdate
+    [Migration("20240303173205_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,6 +129,40 @@ namespace itApp.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("itApp.Domain.Entities.CheckMark", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsPresent")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("OvertimeHours")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("WorkingHours")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("CheckMarks");
                 });
 
             modelBuilder.Entity("itApp.Domain.Entities.Department", b =>
@@ -409,6 +443,17 @@ namespace itApp.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("itApp.Domain.Entities.CheckMark", b =>
+                {
+                    b.HasOne("itApp.Domain.Entities.Employe", "Employee")
+                        .WithMany("CheckMarks")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("itApp.Domain.Entities.Employe", b =>
                 {
                     b.HasOne("itApp.Domain.Entities.Identity.AppUser", "AppUser")
@@ -454,6 +499,8 @@ namespace itApp.Persistence.Migrations
 
             modelBuilder.Entity("itApp.Domain.Entities.Employe", b =>
                 {
+                    b.Navigation("CheckMarks");
+
                     b.Navigation("LeaveRequests");
                 });
 

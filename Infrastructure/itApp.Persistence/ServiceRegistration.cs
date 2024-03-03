@@ -55,6 +55,10 @@ namespace itApp.Persistence
             services.AddScoped<ILeaveTypeWriteRepository, LeaveTypeWriteRepository>();
 
 
+            services.AddScoped<ICheckMarkReadRepository, CheckMarkReadRepository>();
+            services.AddScoped<ICheckMarkWriteRepository, CheckMarkWriteRepository>();
+
+
 
         }
 

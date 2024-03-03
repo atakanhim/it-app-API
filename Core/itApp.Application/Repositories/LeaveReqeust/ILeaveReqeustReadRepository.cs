@@ -5,6 +5,6 @@ namespace itApp.Application.Repositories
 {
     public interface ILeaveRequestReadRepository: IReadRepository<LeaveRequest>
     {
-        public Task<bool> IsLeaveRequestExists(string reason);
+        Task LeaveRequestControl(string reason, DateTime start, DateTime end, Guid employeeId);
     }
 }

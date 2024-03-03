@@ -15,6 +15,7 @@ namespace itApp.Application.DTOs
         public int EmployeTelNo { get; set; }
         public int UsedLeaveDays { get; set; }
         public ICollection<LeaveRequestDTO> LeaveRequests { get; set; }
+        public ICollection<CheckMarkDTO> CheckMarks { get; set; }
         public DepartmentDTO Department { get; set; }
     }
 }

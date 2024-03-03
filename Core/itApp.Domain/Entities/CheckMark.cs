@@ -12,9 +12,7 @@ namespace itApp.Domain.Entities
         public DateTime Date { get; set; } 
         public double WorkingHours { get; set; } = 8;
         public double OvertimeHours { get; set; } = 0;
-
         public Boolean IsPresent { get; set; } = true;
-
 
         public Guid EmployeeId { get; set; }
         public Employe Employee { get; set; }

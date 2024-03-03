@@ -17,6 +17,7 @@ namespace itApp.Persistence.Context
         public DbSet<Department> Departments { get; set; }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
         public DbSet<LeaveType> LeaveTypes { get; set; }
+        public DbSet<CheckMark> CheckMarks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,7 +32,9 @@ namespace itApp.Persistence.Context
             modelBuilder.Entity<Employe>()
                  .HasOne(e => e.Department)
                  .WithMany(d => d.Employees)
-                 .HasForeignKey(e => e.DepartmentId);        
+                 .HasForeignKey(e => e.DepartmentId);       
+            
+ 
             
             modelBuilder.Entity<LeaveRequest>()
                  .HasOne(e => e.LeaveType)
@@ -41,6 +44,11 @@ namespace itApp.Persistence.Context
             modelBuilder.Entity<LeaveRequest>()
                  .HasOne(e => e.Employee)
                  .WithMany(d => d.LeaveRequests)
+                 .HasForeignKey(e => e.EmployeeId);       
+            
+            modelBuilder.Entity<CheckMark>()
+                 .HasOne(e => e.Employee)
+                 .WithMany(d => d.CheckMarks)
                  .HasForeignKey(e => e.EmployeeId);
 
 
@@ -50,10 +58,10 @@ namespace itApp.Persistence.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //if (!optionsBuilder.IsConfigured)
-            //{
-            //    optionsBuilder.UseLazyLoadingProxies();
-            //}
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseLazyLoadingProxies();
+            }
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
