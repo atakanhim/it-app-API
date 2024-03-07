@@ -13,7 +13,7 @@ namespace itApp.Persistence.Repositories
         {
             _context = context;
         }
-        public async Task<bool> IsEmployeExists(int telNo)
+        public async Task<bool> IsEmployeExists(string telNo)
         {
             // İsim kontrolü yapılırken büyük-küçük harf duyarlılığına dikkat edin
             return await _context.Employees.AnyAsync(d => d.EmployeTelNo == telNo);

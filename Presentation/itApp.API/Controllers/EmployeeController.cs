@@ -10,11 +10,11 @@ namespace itApp.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class EmployeController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
         readonly IMediator _mediator;
 
-        public EmployeController(IMediator mediator)
+        public EmployeeController(IMediator mediator)
         {
             _mediator = mediator;
         }

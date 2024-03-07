@@ -20,9 +20,7 @@ namespace itApp.Persistence.Repositories
                 throw new ArgumentException("Başlangıç tarihi, bitiş tarihinden önce olmalıdır.");
             
 
-            bool leaveReason = await _context.LeaveRequests.AnyAsync(d => d.Reason == reason && d.EmployeeId == employeeId);
-            if (leaveReason)
-                throw new Exception("Aynı izin sebebiyle bir izin olusturulmus.");
+          
 
             bool leaveRequestExists = await _context.LeaveRequests
                   .AnyAsync(lr => lr.EmployeeId == employeeId &&

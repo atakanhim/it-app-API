@@ -10,9 +10,10 @@ namespace itApp.Application.DTOs
 {
     public class EmployeDTO : BaseDTO
     {
+        public string AppUserId { get; set; }
         public string EmployeName { get; set; }
         public string EmployeSurname { get; set; }
-        public int EmployeTelNo { get; set; }
+        public string EmployeTelNo { get; set; }
         public int UsedLeaveDays { get; set; }
         public ICollection<LeaveRequestDTO> LeaveRequests { get; set; }
         public ICollection<CheckMarkDTO> CheckMarks { get; set; }

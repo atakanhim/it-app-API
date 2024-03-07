@@ -35,24 +35,16 @@ namespace itApp.Application.Features.Commands.LeaveRequest.CreateLeaveRequest
             try
             {
                 bool employeExists = await _employeReadRepository.IsExists(request.EmployeeId);
+                bool leaveTypeExists = await _leaveTypeReadRepository.IsExists(request.LeaveTypeId);
                 if (!employeExists)
                     throw new Exception("Employe Bulunamadi.");
 
                 if (Guid.TryParse(request.EmployeeId, out Guid parsedId))            
-                    await _leaveRequestReadRepository.LeaveRequestControl(request.Reason,request.StartDate, request.EndDate, parsedId);
-                  
-                     
+                    await _leaveRequestReadRepository.LeaveRequestControl(request.Reason,request.StartDate, request.EndDate, parsedId);                                 
                 else
                     throw new IdParseErrorException();
 
-                
-                  
-
-             
-
-         
-
-                bool leaveTypeExists = await _leaveTypeReadRepository.IsExists(request.LeaveTypeId);
+              
                 if (!leaveTypeExists)
                     throw new Exception("İzin tipi bulunamadı lütfen geçerli bir izin tipi seçiniz.");
 
