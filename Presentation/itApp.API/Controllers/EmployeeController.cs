@@ -1,5 +1,6 @@
 ﻿using itApp.Application.Features.Commands.AppUser.RefreshTokenLogin;
 using itApp.Application.Features.Commands.Employe.CreateEmploye;
+using itApp.Application.Features.Commands.Employe.DeleteEmploye;
 using itApp.Application.Features.Queries.EmployeeQueries.GetAllEmployees;
 using itApp.Application.Features.Queries.EmployeeQueries.GetEmployee;
 using MediatR;
@@ -23,6 +24,14 @@ namespace itApp.API.Controllers
         public async Task<IActionResult> Create([FromBody] CreateEmployeCommandRequest request)
         {
             CreateEmployeCommandResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpDelete("[action]/{Id}")]
+        public async Task<IActionResult> Delete([FromRoute] DeleteEmployeeCommandRequest request)
+        {
+            //DeleteEmployeeCommandRequest request = new DeleteEmployeeCommandRequest() { Id=id};
+            DeleteEmployeeCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 

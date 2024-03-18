@@ -1,15 +1,14 @@
-using itApp.Persistence;
+ï»¿using itApp.Persistence;
 using itApp.Infrastructure;
 using itApp.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Builder;
 using itApp.Infrastructure.Filters;
 using FluentValidation.AspNetCore;
 using itApp.Application.Validators.Products;
 using itApp.API.Extensions;
+using System.Security.Claims;
 
 
 
@@ -35,7 +34,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
             ValidAudience = builder.Configuration["Token:Audience"],
             ValidIssuer = builder.Configuration["Token:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
+            NameClaimType = ClaimTypes.Name //JWT ï¿½zerinde Name claimne karï¿½ï¿½lï¿½k gelen deï¿½eri User.Identity.Name propertysinden elde edebiliriz.
+
         };
     });
 
@@ -68,9 +69,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(options =>
 {
-    options.AllowAnyOrigin(); // Tüm kaynaklara eriþime izin verir
-    options.AllowAnyMethod(); // Tüm HTTP metodlarýna izin verir
-    options.AllowAnyHeader(); // Tüm baþlýklara izin verir
+    options.AllowAnyOrigin(); // TÃ¼m kaynaklara eriÅŸime izin verir
+    options.AllowAnyMethod(); // TÃ¼m HTTP metodlarÄ±na izin verir
+    options.AllowAnyHeader(); // TÃ¼m baÅŸlÄ±klara izin verir
 });
 app.UseHttpsRedirection();
 

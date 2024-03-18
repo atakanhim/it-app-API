@@ -43,10 +43,11 @@ namespace itApp.Persistence.Repositories
             Table.RemoveRange(entitys);
             return true;
         }
-        public async Task<bool> RemoveAsync(string id)
+        public async Task<bool> RemoveAsync(Guid id)
         {
-            T Model = await Table.FirstOrDefaultAsync(p => p.Id == Guid.Parse(id));
-            return Remove(Model);
+            T? Model = await Table.FirstOrDefaultAsync(p => p.Id == id);
+            
+            return Remove(Model!);
         }
 
 

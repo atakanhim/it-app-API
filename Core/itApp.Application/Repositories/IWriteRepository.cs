@@ -13,7 +13,7 @@ namespace itApp.Application.Repositories
 
         bool Remove(T entity);
         bool RemoveRange(List<T> entitys);
-        Task<bool> RemoveAsync(string id);
+        Task<bool> RemoveAsync(Guid id);
 
         bool Update(T entity);
 
