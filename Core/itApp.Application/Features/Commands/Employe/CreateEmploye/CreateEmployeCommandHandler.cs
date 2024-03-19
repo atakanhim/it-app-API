@@ -53,7 +53,7 @@ namespace itApp.Application.Features.Commands.Employe.CreateEmploye
                 throw;
             }
 
-            return new() { Message = "basarili ", Succeeded = true };
+            return new() { Message = request.EmployeName + " başarılı bir şekilde eklendi.", Succeeded = true };
         }
     }
 }

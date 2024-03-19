@@ -1,6 +1,7 @@
 ﻿using itApp.Application.Features.Commands.AppUser.RefreshTokenLogin;
 using itApp.Application.Features.Commands.Employe.CreateEmploye;
 using itApp.Application.Features.Commands.Employe.DeleteEmploye;
+using itApp.Application.Features.Commands.Employe.UpdateEmployee;
 using itApp.Application.Features.Queries.EmployeeQueries.GetAllEmployees;
 using itApp.Application.Features.Queries.EmployeeQueries.GetEmployee;
 using MediatR;
@@ -24,6 +25,13 @@ namespace itApp.API.Controllers
         public async Task<IActionResult> Create([FromBody] CreateEmployeCommandRequest request)
         {
             CreateEmployeCommandResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut("[action]")]
+        public async Task<IActionResult> Update([FromBody] UpdateEmployeeCommandRequest request)
+        {
+            UpdateEmployeeCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 

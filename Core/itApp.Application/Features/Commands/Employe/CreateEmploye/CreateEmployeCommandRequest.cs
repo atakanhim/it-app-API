@@ -8,7 +8,6 @@ namespace itApp.Application.Features.Commands.Employe.CreateEmploye
         public string EmployeName { get; set; }
         public string EmployeSurname{ get; set; }
         public string EmployeTelNo { get; set; }
-        public int RemainingLeaveDays { get; set; } = 20;
         public string AppUserId { get; set; }
         public string DepartmentId { get; set; }
 

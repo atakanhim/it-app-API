@@ -40,7 +40,7 @@ namespace itApp.Application.Features.Commands.Department.CreateDepartment
                 throw ex;
             }
 
-            return new() { Message = "basarili ", Succeeded=true};
+            return new() { Message = request.Name + " departmanı başaşarılı bir şekilde eklendi.", Succeeded=true};
         }
     }
 }
