@@ -18,7 +18,6 @@ namespace itApp.Domain.Entities
         public ICollection<LeaveRequest> LeaveRequests { get; set; }
         public ICollection<CheckMark> CheckMarks { get; set; }
 
-
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
 

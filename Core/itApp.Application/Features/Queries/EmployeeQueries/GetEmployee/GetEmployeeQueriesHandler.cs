@@ -6,6 +6,7 @@ using itApp.Application.Features.Commands.CheckMark.CreateCheckMark;
 using itApp.Application.Repositories;
 using itApp.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,11 +35,15 @@ namespace itApp.Application.Features.Queries.EmployeeQueries.GetEmployee
             {
                 try
                 {
-                    Employe emp = await _employeReadRepository.GetSingleAsync(x => x.Id == parsedId);
-                    if (emp == null)
+                    Employe? query = await _employeReadRepository.Table
+                             .Include(x => x.CheckMarks)
+                             .Include(x => x.Department)
+                             .Include(d => d.LeaveRequests)
+                                 .ThenInclude(dt => dt.LeaveType).Where(z => z.Id == parsedId).FirstOrDefaultAsync();
+                    if (query == null)
                         throw new Exception("Employee bulunamadı");
 
-                    EmployeDTO _employeDTO = mapper.Map<Employe, EmployeDTO>(emp);
+                    EmployeDTO _employeDTO = mapper.Map<Employe, EmployeDTO>(query);
                     return new()
                     {
                         Employee = _employeDTO,

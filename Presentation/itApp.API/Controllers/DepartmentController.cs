@@ -1,5 +1,7 @@
 ﻿using itApp.Application.Features.Commands.Department.CreateDepartment;
+using itApp.Application.Features.Commands.Department.DeleteDepartment;
 using itApp.Application.Features.Commands.Employe.CreateEmploye;
+using itApp.Application.Features.Commands.Employe.DeleteEmploye;
 using itApp.Application.Features.Queries.DepartmentQueries.GetAllDepartments;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +24,13 @@ namespace itApp.API.Controllers
         public async Task<IActionResult> Create([FromBody] CreateDepartmentCommandRequest request)
         {
             CreateDepartmentCommandResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }
+        [HttpDelete("[action]/{Id}")]
+        public async Task<IActionResult> Delete([FromRoute] DeleteDepartmentCommandRequest request)
+        {
+            //DeleteEmployeeCommandRequest request = new DeleteEmployeeCommandRequest() { Id=id};
+            DeleteDepartmentCommandResponse response = await _mediator.Send(request);
             return Ok(response);
         }
 
