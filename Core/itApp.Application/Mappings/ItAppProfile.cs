@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using itApp.Application.DTOs;
+using itApp.Application.DTOs.EmployeeDTOs;
 using itApp.Application.DTOs.FromChekMarkToEmployee;
 using itApp.Application.Features.Commands.CheckMark.CreateCheckMark;
 using itApp.Application.Features.Commands.Employe.CreateEmploye;
@@ -20,14 +21,16 @@ namespace itApp.Application.Mappings
         public ItAppProfile()
         {
             // DTO
-            CreateMap<Employe, EmployeDTO>().ReverseMap();
+            CreateMap<Employe, EmployeDTOIncludeAll>().ReverseMap();
             CreateMap<Employe, EmployeeDTOIncludeNothing>().ReverseMap();
+            CreateMap<Employe, EmployeeDTOIncludeCheckMark>().ReverseMap();
+            CreateMap<Employe, EmployeeDTOIncludeLeaveRequest>().ReverseMap();
 
             CreateMap<LeaveRequest, LeaveRequestDTO>().ReverseMap();
             CreateMap<LeaveType, LeaveTypeDTO>().ReverseMap();
             CreateMap<Department, DepartmentDTO>().ReverseMap();
             CreateMap<CheckMark, CheckMarkDTO>().ReverseMap();
-            CreateMap<CheckMark, CheckMarkDTOIncludeEmployee>().ReverseMap();
+            CreateMap<CheckMark, BaseCheckMarkDTO>().ReverseMap();
 
 
 

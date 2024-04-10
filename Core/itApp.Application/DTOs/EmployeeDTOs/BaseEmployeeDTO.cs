@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace itApp.Application.DTOs.FromChekMarkToEmployee
+namespace itApp.Application.DTOs.EmployeeDTOs
 {
-    public class EmployeeDTOIncludeNothing:BaseDTO
+    public class BaseEmployeeDTO : BaseDTO
     {
         public string AppUserId { get; set; }
         public string EmployeName { get; set; }

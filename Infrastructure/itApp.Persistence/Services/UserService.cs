@@ -5,10 +5,10 @@ using itApp.Application.DTOs.User;
 using itApp.Application.Exceptions;
 using itApp.Domain.Entities.Identity;
 using AutoMapper;
-using itApp.Application.DTOs;
 using itApp.Domain.Entities;
 using System.Collections.Generic;
 using Microsoft.IdentityModel.Tokens;
+using itApp.Application.DTOs.EmployeeDTOs;
 
 namespace itApp.Persistence.Services
 {
@@ -105,7 +105,7 @@ namespace itApp.Persistence.Services
 
 
                 ICollection<Employe> employe = user.Employees;            
-                ICollection<EmployeDTO> dtoemploye = _mapper.Map<ICollection<Employe>, ICollection<EmployeDTO>>(employe);
+                ICollection<EmployeDTOIncludeAll> dtoemploye = _mapper.Map<ICollection<Employe>, ICollection<EmployeDTOIncludeAll>>(employe);
                 
                 return new()
                 {
@@ -133,16 +133,13 @@ namespace itApp.Persistence.Services
                     throw new NotFoundUserException("Kullanıcı bulunamadı");
 
 
-                ICollection<Employe> employe = user.Employees;
-
-
-                ICollection<EmployeDTO> dtoemploye = _mapper.Map<ICollection<Employe>, ICollection<EmployeDTO>>(employe);
+               // ICollection<EmployeDTOIncludeAll> dtoemploye = _mapper.Map<ICollection<Employe>, ICollection<EmployeDTOIncludeAll>>(user.Employees);
 
                 return new()
                 {
                     Id = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
+                    UserName = user.UserName!,
+                    Email = user.Email!,
                 };
             }
             catch (Exception ex)

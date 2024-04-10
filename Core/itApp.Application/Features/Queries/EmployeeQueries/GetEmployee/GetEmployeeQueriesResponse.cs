@@ -1,4 +1,4 @@
-﻿using itApp.Application.DTOs;
+﻿using itApp.Application.DTOs.EmployeeDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace itApp.Application.Features.Queries.EmployeeQueries.GetEmployee
 {
     public class GetEmployeeQueriesResponse
     {
-        public EmployeDTO Employee { get; set; }      
+        public EmployeDTOIncludeAll Employee { get; set; }      
     }
 }

@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using itApp.Application.Abstractions.Services;
-using itApp.Application.DTOs;
+using itApp.Application.DTOs.EmployeeDTOs;
 using itApp.Application.Exceptions;
 using itApp.Application.Features.Commands.CheckMark.CreateCheckMark;
 using itApp.Application.Repositories;
+using itApp.Application.Utilities;
 using itApp.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -31,19 +32,18 @@ namespace itApp.Application.Features.Queries.EmployeeQueries.GetEmployee
 
         public async Task<GetEmployeeQueriesResponse> Handle(GetEmployeeQueriesRequest request, CancellationToken cancellationToken)
         {
-            if (Guid.TryParse(request.EmployeeId, out Guid parsedId))
-            {
+           
                 try
                 {
-                    Employe? query = await _employeReadRepository.Table
+                    Employe? query = await _employeReadRepository.GetAll()
                              .Include(x => x.CheckMarks)
                              .Include(x => x.Department)
                              .Include(d => d.LeaveRequests)
-                                 .ThenInclude(dt => dt.LeaveType).Where(z => z.Id == parsedId).FirstOrDefaultAsync();
+                                 .ThenInclude(dt => dt.LeaveType).Where(z => z.Id == CustomGuidConverter.Instance.StringToGuidConverter(request.EmployeeId)).FirstOrDefaultAsync();
                     if (query == null)
                         throw new Exception("Employee bulunamadı");
 
-                    EmployeDTO _employeDTO = mapper.Map<Employe, EmployeDTO>(query);
+                EmployeDTOIncludeAll _employeDTO = mapper.Map<Employe, EmployeDTOIncludeAll>(query);
                     return new()
                     {
                         Employee = _employeDTO,
@@ -53,9 +53,8 @@ namespace itApp.Application.Features.Queries.EmployeeQueries.GetEmployee
                 {
                     throw;
                 }
-            }
-            else
-            throw new IdParseErrorException();
+            
+            
         }
     }
 }
