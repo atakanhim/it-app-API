@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using itApp.Application.Abstractions.Services;
-using itApp.Application.DTOs;
+using itApp.Application.DTOs.EmployeeDTOs;
 using itApp.Application.Exceptions;
 using itApp.Application.Repositories;
 using itApp.Domain.Entities;
@@ -33,14 +33,14 @@ namespace itApp.Application.Features.Queries.EmployeeQueries.GetAllEmployees
           
                 try
                 {
-                var query = await _employeReadRepository.Table
+                   var query = await _employeReadRepository.GetAll()
                                 .Include(x => x.CheckMarks)
                                 .Include(x => x.Department)
                                 .Include(d => d.LeaveRequests)
                                     .ThenInclude(dt => dt.LeaveType).Where(z=>z.AppUserId == request.UserId).ToListAsync();
 
 
-                  ICollection<EmployeDTO> dtoemploye = mapper.Map<ICollection<Employe>, ICollection<EmployeDTO>>(query);
+                   ICollection<EmployeDTOIncludeAll> dtoemploye = mapper.Map<ICollection<Employe>, ICollection<EmployeDTOIncludeAll>>(query);
 
 
 

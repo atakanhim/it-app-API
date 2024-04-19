@@ -4,6 +4,7 @@ using itApp.Application.Features.Commands.Employe.DeleteEmploye;
 using itApp.Application.Features.Commands.Employe.UpdateEmployee;
 using itApp.Application.Features.Queries.EmployeeQueries.GetAllEmployees;
 using itApp.Application.Features.Queries.EmployeeQueries.GetEmployee;
+using itApp.Application.Features.Queries.EmployeeQueries.GetEmployeeWithCheckmark;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +54,12 @@ namespace itApp.API.Controllers
         public async Task<IActionResult> GetEmployee([FromQuery] GetEmployeeQueriesRequest request)
         {
             GetEmployeeQueriesResponse response = await _mediator.Send(request);
+            return Ok(response);
+        }  
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetEmployeeWithCheckMark([FromQuery] GetEmployeeWithCheckMarkQueriesRequest request)
+        {
+            GetEmployeeWithCheckMarkQueriesResponse response = await _mediator.Send(request);
             return Ok(response);
         }
     }

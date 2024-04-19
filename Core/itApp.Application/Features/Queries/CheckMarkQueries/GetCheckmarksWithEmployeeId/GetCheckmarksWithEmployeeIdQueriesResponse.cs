@@ -10,7 +10,7 @@ namespace itApp.Application.Features.Queries.CheckMarkQueries.GetCheckmarksWithE
 {
     public class GetCheckmarksWithEmployeeIdQueriesResponse
     {
-        public IEnumerable<CheckMarkDTOIncludeEmployee>? CheckMarks { get; set; } // Kullanıcı listesi
+        public IEnumerable<BaseCheckMarkDTO>? CheckMarks { get; set; } // Kullanıcı listesi
 
     }
 }

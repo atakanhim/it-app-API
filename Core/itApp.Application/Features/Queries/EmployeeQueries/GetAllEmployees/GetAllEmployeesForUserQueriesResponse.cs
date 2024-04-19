@@ -1,4 +1,4 @@
-﻿using itApp.Application.DTOs;
+﻿using itApp.Application.DTOs.EmployeeDTOs;
 using itApp.Application.DTOs.User;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace itApp.Application.Features.Queries.EmployeeQueries.GetAllEmployees
 {
     public class GetAllEmployeesForUserQueriesResponse
     {
-        public IEnumerable<EmployeDTO> Employees { get; set; } // Kullanıcı listesi
+        public IEnumerable<EmployeDTOIncludeAll> Employees { get; set; } // Kullanıcı listesi
 
     }
 }

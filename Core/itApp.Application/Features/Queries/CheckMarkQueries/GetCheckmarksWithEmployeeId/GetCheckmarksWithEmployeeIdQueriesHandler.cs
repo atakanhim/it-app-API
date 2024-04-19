@@ -4,6 +4,7 @@ using itApp.Application.DTOs.FromChekMarkToEmployee;
 using itApp.Application.Exceptions;
 using itApp.Application.Features.Queries.DepartmentQueries.GetAllDepartments;
 using itApp.Application.Repositories;
+using itApp.Application.Utilities;
 using itApp.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace itApp.Application.Features.Queries.CheckMarkQueries.GetCheckmarksWithE
         {
             try
             {
+<<<<<<< HEAD
                 if (Guid.TryParse(request.EmployeeId, out Guid result))
                 {
                     int n1 = request.Month;
@@ -48,13 +50,16 @@ namespace itApp.Application.Features.Queries.CheckMarkQueries.GetCheckmarksWithE
                         .Where(x => x.EmployeeId == result && x.Date >= start && x.Date < finish)
                         .OrderBy(x => x.Date) // Tarihe göre sıralama
                         .ToListAsync();
+=======
 
-                    IEnumerable<CheckMarkDTOIncludeEmployee> resultModel = _mapper.Map<IEnumerable<CheckMark>, IEnumerable<CheckMarkDTOIncludeEmployee>>(checkMarks);
+                    IEnumerable<CheckMark> checkMarks = await _readRepository.GetAll()
+                                  .Include(x => x.Employee)
+                                      .ThenInclude(dt => dt.Department).Where(x => x.EmployeeId == CustomGuidConverter.Instance.StringToGuidConverter(request.EmployeeId)).ToListAsync();
+>>>>>>> 5d1b28fe8c5e586e78e8c34777c3de5f527e7e10
+
+                    IEnumerable<BaseCheckMarkDTO> resultModel = _mapper.Map<IEnumerable<CheckMark>, IEnumerable<BaseCheckMarkDTO>>(checkMarks);
                     return new() { CheckMarks = resultModel };
-                }
-
-                else
-                    throw new IdParseErrorException();
+           
             }
             catch(Exception ex)
             {

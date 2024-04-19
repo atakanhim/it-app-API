@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 using itApp.Persistence.Context;
+using itApp.Application.Utilities;
 
 namespace itApp.Persistence.Repositories
 {
@@ -45,7 +46,7 @@ namespace itApp.Persistence.Repositories
             }
             return query;
         }
-        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> method, bool tracking = true)
+        public async Task<T?> GetSingleAsync(Expression<Func<T, bool>> method, bool tracking = true)
         {
             // return Table.SingleAsync(method);
 
@@ -57,15 +58,14 @@ namespace itApp.Persistence.Repositories
         }
 
 
-        public async Task<T> GetByIdAsync(string id, bool tracking = true)// pattern olack
+        public async Task<T?> GetByIdAsync(string id, bool tracking = true)// pattern olack
         {
             // return await Table.FirstOrDefaultAsync(p => p.Id == Guid.Parse(id)); // reflection yapmaktansa baseentity yaptık
-
             var query = Table.AsQueryable();
             if (!tracking)
                 query.AsNoTracking();
 
-            return await query.FirstOrDefaultAsync(p => p.Id == Guid.Parse(id));
+            return await query.FirstOrDefaultAsync(p => p.Id == CustomGuidConverter.Instance.StringToGuidConverter(id));
         }
     }
 }

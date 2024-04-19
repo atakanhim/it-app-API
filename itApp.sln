@@ -9,15 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3B75066A-D032-4763-8BD8-8098022BD710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itApp.API", "Presentation\itApp.API\itApp.API.csproj", "{B98D1D5B-40B4-427E-A704-EDD2A65C6C83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "itApp.API", "Presentation\itApp.API\itApp.API.csproj", "{B98D1D5B-40B4-427E-A704-EDD2A65C6C83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itApp.Application", "Core\itApp.Application\itApp.Application.csproj", "{DFE38757-AFA6-45AD-A52D-1F1C9FA9F09A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "itApp.Application", "Core\itApp.Application\itApp.Application.csproj", "{DFE38757-AFA6-45AD-A52D-1F1C9FA9F09A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itApp.Domain", "Core\itApp.Domain\itApp.Domain.csproj", "{91FA0D6E-1C67-46C6-B104-95794ADDF9B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "itApp.Domain", "Core\itApp.Domain\itApp.Domain.csproj", "{91FA0D6E-1C67-46C6-B104-95794ADDF9B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itApp.Infrastructure", "Infrastructure\itApp.Infrastructure\itApp.Infrastructure.csproj", "{78488385-6FE4-4679-8309-54DA3C072FFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "itApp.Infrastructure", "Infrastructure\itApp.Infrastructure\itApp.Infrastructure.csproj", "{78488385-6FE4-4679-8309-54DA3C072FFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itApp.Persistence", "Infrastructure\itApp.Persistence\itApp.Persistence.csproj", "{7C30FB50-D362-4A0E-BD16-B46EF2E0010C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "itApp.Persistence", "Infrastructure\itApp.Persistence\itApp.Persistence.csproj", "{7C30FB50-D362-4A0E-BD16-B46EF2E0010C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

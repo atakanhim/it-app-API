@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using itApp.Application.DTOs.EmployeeDTOs;
 
 namespace itApp.Application.DTOs.User
 {
@@ -12,6 +13,6 @@ namespace itApp.Application.DTOs.User
         public string Email { get; set; }
         public string UserName { get; set; }
 
-        public IEnumerable<EmployeDTO>? Employees { get; set; }
+        public IEnumerable<EmployeDTOIncludeAll>? Employees { get; set; }
     }
 }
