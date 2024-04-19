@@ -32,10 +32,22 @@ namespace itApp.Application.Features.Queries.CheckMarkQueries.GetCheckmarksWithE
             {
                 if (Guid.TryParse(request.EmployeeId, out Guid result))
                 {
+                    int n1 = request.Month;
+                    DateTime start = new DateTime(DateTime.Now.Year, n1, 1);
+                    DateTime finish;
+
+                    if (n1 == 12)                     
+                        finish = new DateTime(DateTime.Now.Year + 1, 1, 1);
+                    else
+                        finish = new DateTime(DateTime.Now.Year, n1 + 1, 1);
+                    
 
                     IEnumerable<CheckMark> checkMarks = await _readRepository.GetAll()
-                                  .Include(x => x.Employee)
-                                      .ThenInclude(dt => dt.Department).Where(x => x.EmployeeId == result).ToListAsync();
+                        .Include(x => x.Employee)
+                            .ThenInclude(dt => dt.Department)
+                        .Where(x => x.EmployeeId == result && x.Date >= start && x.Date < finish)
+                        .OrderBy(x => x.Date) // Tarihe göre sıralama
+                        .ToListAsync();
 
                     IEnumerable<CheckMarkDTOIncludeEmployee> resultModel = _mapper.Map<IEnumerable<CheckMark>, IEnumerable<CheckMarkDTOIncludeEmployee>>(checkMarks);
                     return new() { CheckMarks = resultModel };
