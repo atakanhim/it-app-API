@@ -14,5 +14,6 @@ namespace itApp.Application.DTOs.FromChekMarkToEmployee
         public double OvertimeHours { get; set; } = 0;
         public Boolean IsPresent { get; set; } = true;
         public Guid EmployeeId { get; set; }
+        public EmployeeDTOIncludeNothing Employee { get; set; }
     }
 }
